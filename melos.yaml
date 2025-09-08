@@ -1,0 +1,13 @@
+name: project_shield
+packages:
+  - apps/*
+  - packages/*
+
+command:
+  bootstrap:
+    runPubGetInParallel: true
+    usePubspecOverrides: true
+
+ide:
+  intellij: false
+  vscode: true

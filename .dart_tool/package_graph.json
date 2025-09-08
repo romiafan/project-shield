@@ -1,0 +1,14 @@
+{
+  "roots": [
+    "project_shield_workspace"
+  ],
+  "packages": [
+    {
+      "name": "project_shield_workspace",
+      "version": "0.0.0",
+      "dependencies": [],
+      "devDependencies": []
+    }
+  ],
+  "configVersion": 1
+}
