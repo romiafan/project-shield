@@ -47,6 +47,10 @@ From repo root:
 melos bootstrap  # optional; safe to run
 ```
 
+## Dark Mode Toggle
+
+Project Shield supports a dark mode toggle in the Settings screen. You can switch between light, dark, and system themes. The selected theme is persisted and restored automatically using Riverpod and shared_preferences.
+
 ## Run the App
 
 From repo root:
