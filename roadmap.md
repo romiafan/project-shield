@@ -2,6 +2,17 @@
 
 Welcome to the Project Shield command center! This document provides a complete guide for setting up your development environment, understanding the project's architecture, and following the development roadmap from our initial MVP to future releases.
 
+---
+
+## 🚀 Release History
+
+### v0.0.1 (September 9, 2025)
+
+- MVP features complete and released to main
+- See README.md for details
+
+---
+
 ## 🏁 1. Getting Started
 
 Follow these instructions to get the project running on your local machine.
@@ -90,32 +101,32 @@ The goal of this phase is to build the core, essential features of the password 
 
 Milestone 1: Foundational UI & Navigation
 
-[ ] Task: Create the main Shell widget with a BottomNavigationBar.
-[ ] Task: Create the initial placeholder screens for "Vault", "Generator", and "Settings".
-[ ] Task: Manage the navigation state using Riverpod.
+- [x] Task: Create the main Shell widget with a BottomNavigationBar.
+- [x] Task: Create the initial placeholder screens for "Vault", "Generator", and "Settings".
+- [x] Task: Manage the navigation state using Riverpod.
 
 Milestone 2: Credential Management Feature
 
-[ ] Task: Set up the "Credentials" feature folder according to the project architecture.
-[ ] Task: Design and build the UI for credentials_screen.dart.
-[ ] Task: Implement the Riverpod providers to handle credential state.
-[ ] Task: Build the "Add/Edit Credential" form screen.
+- [x] Task: Set up the "Credentials" feature folder according to the project architecture.
+- [x] Task: Design and build the UI for credentials_screen.dart.
+- [x] Task: Implement the Riverpod providers to handle credential state.
+- [x] Task: Build the "Add/Edit Credential" form screen.
 
 Milestone 3: Strong Password Generator
 
-[ ] Task: Set up the "Generator" feature folder.
-[ ] Task: Build the UI for generator_screen.dart.
-[ ] Task: Implement the business logic in the core package.
-[ ] Task: Connect the UI to the generation logic using a Riverpod provider.
+- [x] Task: Set up the "Generator" feature folder.
+- [x] Task: Build the UI for generator_screen.dart.
+- [x] Task: Implement the business logic in the core package.
+- [x] Task: Connect the UI to the generation logic using a Riverpod provider.
 
 🚀 5. Beyond the MVP: Future Milestones
 
 
 Milestone 4: Quality of Life & Onboarding
 
-[ ] Data Import/Export
-[ ] Trash Can
-[ ] Expanded Credential Types
+- [x] Data Import/Export
+- [x] Trash Can
+- [x] Expanded Credential Types
 
 Milestone 5: Proactive Security & Integration
 
