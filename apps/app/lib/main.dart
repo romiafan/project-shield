@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:core/src/feature_config.dart';
 import 'src/features/shell/shell_view.dart';
+
+final featureConfigProvider = Provider<Map<String, bool>>(
+  (ref) => kFeatureConfig,
+);
 
 void main() {
   runApp(const ProviderScope(child: App()));
