@@ -1,0 +1,13 @@
+name: core
+description: Shared business logic for Project Shield
+version: 0.0.1
+publish_to: "none"
+
+environment:
+  sdk: ">=3.9.0 <4.0.0"
+
+dependencies:
+  meta: ^1.16.0
+
+dev_dependencies:
+  flutter_lints: ^5.0.0

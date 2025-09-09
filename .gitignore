@@ -1,1 +1,29 @@
-.env.development
+.dart_tool/
+.packages
+.pub-cache/
+build/
+**/build/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Env files
+.env
+.env.*
+!.env.template
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# macOS
+.DS_Store
+
+# Generated
+coverage/
+**/*.generated.*
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

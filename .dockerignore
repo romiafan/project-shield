@@ -1,0 +1,13 @@
+.dockerignore
+.git
+.gitignore
+.dart_tool
+build
+**/build
+packages/**/.dart_tool
+apps/app/.dart_tool
+.env*
+!.env.template
+**/.DS_Store
+**/.idea
+**/.vscode
