@@ -1,6 +1,6 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:core/core.dart';
 
 final passwordLengthProvider = StateProvider<int>((ref) => 16);
 final includeNumbersProvider = StateProvider<bool>((ref) => true);
@@ -8,28 +8,7 @@ final includeSymbolsProvider = StateProvider<bool>((ref) => true);
 final includeUppercaseProvider = StateProvider<bool>((ref) => true);
 final generatedPasswordProvider = StateProvider<String>((ref) => '');
 
-String _generatePassword({
-  required int length,
-  required bool numbers,
-  required bool symbols,
-  required bool uppercase,
-}) {
-  const String lowers = 'abcdefghijklmnopqrstuvwxyz';
-  const String uppers = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const String nums = '0123456789';
-  const String syms = '!@#\$%^&*()-_=+[]{};:,.?/';
-
-  String charset = lowers;
-  if (uppercase) charset += uppers;
-  if (numbers) charset += nums;
-  if (symbols) charset += syms;
-
-  final Random rng = Random.secure();
-  return List<String>.generate(
-    length,
-    (_) => charset[rng.nextInt(charset.length)],
-  ).join();
-}
+// generation logic moved to core PasswordGenerator
 
 class GeneratorScreen extends ConsumerWidget {
   const GeneratorScreen({super.key});
@@ -43,11 +22,12 @@ class GeneratorScreen extends ConsumerWidget {
     final String password = ref.watch(generatedPasswordProvider);
 
     void regenerate() {
-      final String pwd = _generatePassword(
+      final PasswordGenerator generator = PasswordGenerator();
+      final String pwd = generator.generate(
         length: length,
-        numbers: numbers,
-        symbols: symbols,
-        uppercase: uppercase,
+        includeNumbers: numbers,
+        includeSymbols: symbols,
+        includeUppercase: uppercase,
       );
       ref.read(generatedPasswordProvider.notifier).state = pwd;
     }
