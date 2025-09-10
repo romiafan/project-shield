@@ -23,6 +23,18 @@ final credentialsNotifierProviderInit = FutureProvider<CredentialsNotifier>((
 });
 
 class CredentialsNotifier extends StateNotifier<List<Credential>> {
+  /// Permanently delete a credential by id (used for Trash Can)
+  void deleteForeverById(String id) {
+    state = state.where((c) => c.id != id).toList(growable: false);
+    _save();
+  }
+
+  /// Replace all credentials (used for import)
+  void replaceAll(List<Credential> newCredentials) {
+    state = newCredentials;
+    _save();
+  }
+
   List<Credential> get credentials => state;
   CredentialsNotifier({required core.CredentialsStorage storage})
     : _storage = storage,

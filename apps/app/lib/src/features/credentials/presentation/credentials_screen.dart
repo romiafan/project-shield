@@ -310,58 +310,77 @@ class CredentialsScreen extends ConsumerWidget {
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+                        if (item.type == 'totp') ...[
+                          Text('TOTP Secret: ${item.totpSecret ?? ''}'),
+                          Text('Digits: ${item.totpDigits ?? ''}'),
+                          Text('Period: ${item.totpPeriod ?? ''}'),
+                        ] else if (item.type == 'passkey') ...[
+                          Text('Passkey ID: ${item.passkeyCredentialId ?? ''}'),
+                          Text('Public Key: ${item.passkeyPublicKey ?? ''}'),
+                        ] else if (item.type == 'credit_card') ...[
+                          Text('Card Number: ${item.cardNumber ?? ''}'),
+                          Text('Expiry: ${item.cardExpiry ?? ''}'),
+                          Text('Holder: ${item.cardHolder ?? ''}'),
+                          Text('CVC: ${item.cardCvc ?? ''}'),
+                        ] else if (item.type == 'secure_note') ...[
+                          Text('Note: ${item.noteContent ?? ''}'),
+                        ],
                         if (item.url != null && item.url!.isNotEmpty)
                           Padding(
                             padding: const EdgeInsets.only(bottom: 2),
                             child: Text(item.url!),
                           ),
                         Text(item.username),
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                isVisible ? item.password : '••••••••',
-                                style: const TextStyle(fontSize: 16),
+                        if (item.type == 'basic' ||
+                            item.type == 'identity' ||
+                            item.type == 'license')
+                          Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Text(
+                                  isVisible ? item.password : '••••••••',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
                               ),
-                            ),
-                            IconButton(
-                              icon: Icon(
-                                isVisible
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
+                              IconButton(
+                                icon: Icon(
+                                  isVisible
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                ),
+                                tooltip: isVisible
+                                    ? 'Hide password'
+                                    : 'Show password',
+                                onPressed: () {
+                                  final map = Map<String, bool>.from(
+                                    passwordVisibility,
+                                  );
+                                  map[item.id] = !isVisible;
+                                  ref
+                                          .read(
+                                            _passwordVisibilityProvider
+                                                .notifier,
+                                          )
+                                          .state =
+                                      map;
+                                },
                               ),
-                              tooltip: isVisible
-                                  ? 'Hide password'
-                                  : 'Show password',
-                              onPressed: () {
-                                final map = Map<String, bool>.from(
-                                  passwordVisibility,
-                                );
-                                map[item.id] = !isVisible;
-                                ref
-                                        .read(
-                                          _passwordVisibilityProvider.notifier,
-                                        )
-                                        .state =
-                                    map;
-                              },
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.copy),
-                              tooltip: 'Copy password',
-                              onPressed: () {
-                                Clipboard.setData(
-                                  ClipboardData(text: item.password),
-                                );
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Password copied!'),
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
+                              IconButton(
+                                icon: const Icon(Icons.copy),
+                                tooltip: 'Copy password',
+                                onPressed: () {
+                                  Clipboard.setData(
+                                    ClipboardData(text: item.password),
+                                  );
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Password copied!'),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
                         if (item.notes != null && item.notes!.isNotEmpty)
                           Padding(
                             padding: const EdgeInsets.only(top: 2),
@@ -383,7 +402,7 @@ class CredentialsScreen extends ConsumerWidget {
                           ),
                       ],
                     ),
-                    trailing: const Icon(Icons.chevron_right),
+                    trailing: Text(item.type.toUpperCase()),
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute<void>(
                         builder: (_) =>

@@ -3,6 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../credentials/presentation/credentials_screen.dart';
 import '../generator/presentation/generator_screen.dart' as gen;
 import '../../common/theme_mode_provider.dart';
+import 'package:core/src/services/credentials_import_export.dart';
+import '../credentials/application/credentials_notifier.dart';
+import 'dart:convert';
+// ignore: avoid_web_libraries_in_flutter
+import 'web_file_helper_stub.dart'
+    if (dart.library.html) 'web_file_helper.dart';
 
 final shellIndexProvider = StateProvider<int>((ref) => 0);
 
@@ -108,9 +114,9 @@ class SettingsScreen extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(8),
                       onPressed: (index) {
                         ThemeMode selected;
-                        if (index == 0)
+                        if (index == 0) {
                           selected = ThemeMode.light;
-                        else if (index == 1)
+                        } else if (index == 1)
                           selected = ThemeMode.dark;
                         else
                           selected = ThemeMode.system;
@@ -127,6 +133,67 @@ class SettingsScreen extends ConsumerWidget {
                           child: Icon(Icons.brightness_auto),
                         ),
                       ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+            Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    ElevatedButton.icon(
+                      icon: const Icon(Icons.file_upload),
+                      label: const Text('Import Credentials'),
+                      onPressed: () async {
+                        try {
+                          final jsonString = await pickJsonFile();
+                          if (jsonString != null) {
+                            final imported =
+                                CredentialsImportExport.importFromJson(
+                                  jsonString,
+                                );
+                            final notifier = ref.read(
+                              credentialsNotifierProvider.notifier,
+                            );
+                            notifier.replaceAll(imported);
+                          }
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Import not available: $e')),
+                          );
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 12),
+                    ElevatedButton.icon(
+                      icon: const Icon(Icons.file_download),
+                      label: const Text('Export Credentials'),
+                      onPressed: () async {
+                        try {
+                          final credentials = ref.read(
+                            credentialsNotifierProvider,
+                          );
+                          final json = CredentialsImportExport.exportToJson(
+                            credentials,
+                          );
+                          await exportJsonFile(json);
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Export not available: $e')),
+                          );
+                        }
+                      },
                     ),
                   ],
                 ),

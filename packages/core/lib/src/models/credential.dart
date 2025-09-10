@@ -12,6 +12,20 @@ class Credential {
   final bool isDeleted;
   final String type;
   final int version;
+  // TOTP fields
+  final String? totpSecret;
+  final int? totpDigits;
+  final int? totpPeriod;
+  // Passkey fields
+  final String? passkeyCredentialId;
+  final String? passkeyPublicKey;
+  // Card fields
+  final String? cardNumber;
+  final String? cardExpiry;
+  final String? cardHolder;
+  final String? cardCvc;
+  // Secure note fields
+  final String? noteContent;
 
   const Credential({
     required this.id,
@@ -24,6 +38,16 @@ class Credential {
     this.isDeleted = false,
     this.type = 'basic',
     this.version = 1,
+    this.totpSecret,
+    this.totpDigits,
+    this.totpPeriod,
+    this.passkeyCredentialId,
+    this.passkeyPublicKey,
+    this.cardNumber,
+    this.cardExpiry,
+    this.cardHolder,
+    this.cardCvc,
+    this.noteContent,
   });
 
   Credential copyWith({
@@ -37,6 +61,16 @@ class Credential {
     bool? isDeleted,
     String? type,
     int? version,
+    String? totpSecret,
+    int? totpDigits,
+    int? totpPeriod,
+    String? passkeyCredentialId,
+    String? passkeyPublicKey,
+    String? cardNumber,
+    String? cardExpiry,
+    String? cardHolder,
+    String? cardCvc,
+    String? noteContent,
   }) {
     return Credential(
       id: id ?? this.id,
@@ -49,6 +83,16 @@ class Credential {
       isDeleted: isDeleted ?? this.isDeleted,
       type: type ?? this.type,
       version: version ?? this.version,
+      totpSecret: totpSecret ?? this.totpSecret,
+      totpDigits: totpDigits ?? this.totpDigits,
+      totpPeriod: totpPeriod ?? this.totpPeriod,
+      passkeyCredentialId: passkeyCredentialId ?? this.passkeyCredentialId,
+      passkeyPublicKey: passkeyPublicKey ?? this.passkeyPublicKey,
+      cardNumber: cardNumber ?? this.cardNumber,
+      cardExpiry: cardExpiry ?? this.cardExpiry,
+      cardHolder: cardHolder ?? this.cardHolder,
+      cardCvc: cardCvc ?? this.cardCvc,
+      noteContent: noteContent ?? this.noteContent,
     );
   }
 
@@ -63,6 +107,16 @@ class Credential {
     'isDeleted': isDeleted,
     'type': type,
     'version': version,
+    'totpSecret': totpSecret,
+    'totpDigits': totpDigits,
+    'totpPeriod': totpPeriod,
+    'passkeyCredentialId': passkeyCredentialId,
+    'passkeyPublicKey': passkeyPublicKey,
+    'cardNumber': cardNumber,
+    'cardExpiry': cardExpiry,
+    'cardHolder': cardHolder,
+    'cardCvc': cardCvc,
+    'noteContent': noteContent,
   };
 
   factory Credential.fromJson(Map<String, Object?> json) => Credential(
@@ -76,5 +130,15 @@ class Credential {
     isDeleted: json['isDeleted'] as bool? ?? false,
     type: json['type'] as String? ?? 'basic',
     version: json['version'] as int? ?? 1,
+    totpSecret: json['totpSecret'] as String?,
+    totpDigits: json['totpDigits'] as int?,
+    totpPeriod: json['totpPeriod'] as int?,
+    passkeyCredentialId: json['passkeyCredentialId'] as String?,
+    passkeyPublicKey: json['passkeyPublicKey'] as String?,
+    cardNumber: json['cardNumber'] as String?,
+    cardExpiry: json['cardExpiry'] as String?,
+    cardHolder: json['cardHolder'] as String?,
+    cardCvc: json['cardCvc'] as String?,
+    noteContent: json['noteContent'] as String?,
   );
 }

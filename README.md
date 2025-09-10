@@ -51,6 +51,31 @@ melos bootstrap  # optional; safe to run
 
 Project Shield supports a dark mode toggle in the Settings screen. You can switch between light, dark, and system themes. The selected theme is persisted and restored automatically using Riverpod and shared_preferences.
 
+## Import/Export Credentials
+
+You can import and export your credentials as JSON files from the Settings screen:
+
+- **Export**: Downloads all credentials as a JSON file (`credentials_export.json`).
+- **Import**: Select a JSON file to replace all credentials in the app. Only valid Project Shield credential files are accepted.
+
+### Supported Credential Types
+
+Project Shield supports the following credential types:
+
+- **Basic**: Standard username/password credentials
+- **TOTP**: Time-based One-Time Password (2FA) secrets
+- **Passkey**: WebAuthn passkey credentials (credential ID, public key)
+- **Credit Card**: Card number, expiry, holder, CVC
+- **Secure Note**: Encrypted note content
+- **Identity/License**: Personal or license info (fields may expand)
+
+All types and fields are fully supported in import/export. You can backup, restore, and migrate all credential types seamlessly.
+
+Limitations:
+
+- Import/export is currently supported for web. Other platforms may require additional integration.
+- Import will overwrite all existing credentials.
+
 ## Run the App
 
 From repo root:
