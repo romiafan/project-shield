@@ -128,13 +128,41 @@ Milestone 4: Quality of Life & Onboarding
 - [x] Trash Can
 - [x] Expanded Credential Types
 
+
 Milestone 5: Proactive Security & Integration
 
-[ ] Browser Extensions
-[ ] Password Health Dashboard
+- [~] Browser Extensions (in progress)
+- [ ] Password Health Dashboard
 
 Future Vision
 
-[ ] Passkey Support
-[ ] 2FA Authenticator (TOTP)
-```
+- [~] Passkey Support (MVP complete, advanced features planned)
+- [ ] 2FA Authenticator (TOTP)
+
+---
+
+## 🧩 Browser Extension Integration (In Progress)
+
+This milestone will add browser extension support for autofill and credential sync.
+
+**Planned Steps:**
+- Decide on target browsers (Chrome, Firefox, etc.)
+- Scaffold extension project in `/extensions/browser_extension`
+- Define secure communication protocol between app and extension
+- Implement autofill and popup UI
+- Sync credentials with main app (manual/automatic)
+
+**Status:**
+- Architecture planning started
+- Project scaffolding next
+
+See README.md for repository layout and extension folder location.
+
+## Browser Extension
+- [x] Scaffold extension project and manifest
+- [x] Implement credential sync logic (background.js)
+- [x] Implement autofill logic (content.js)
+- [x] Implement popup UI (popup.html, popup.js)
+- [ ] Security review and advanced features
+- [ ] Cross-browser testing
+- Status: In Progress
