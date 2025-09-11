@@ -6,16 +6,26 @@ console.log('Project Shield content script loaded.');
 
 // Autofill login forms with credentials
 function autofillCredentials(credentials) {
-  // TODO: Find login fields and fill with credentials
-  // Example: document.querySelector('input[type="password"]')
-  // For deployment, use robust selectors and handle edge cases
-  if (!credentials || credentials.length === 0) return;
-  // Demo: Fill first found login form
-  const usernameField = document.querySelector('input[type="text"], input[type="email"]');
-  const passwordField = document.querySelector('input[type="password"]');
-  if (usernameField && passwordField) {
-    usernameField.value = credentials[0].username || '';
-    passwordField.value = credentials[0].password || '';
+  // Enhanced autofill: robust selectors, multiple forms, error handling
+  if (!credentials || credentials.length === 0) {
+    console.warn('No credentials provided for autofill.');
+    return;
+  }
+  // Try to autofill all login forms on the page
+  const forms = document.querySelectorAll('form');
+  let autofilled = false;
+  forms.forEach(form => {
+    const usernameField = form.querySelector('input[type="text"], input[type="email"]');
+    const passwordField = form.querySelector('input[type="password"]');
+    if (usernameField && passwordField) {
+      usernameField.value = credentials[0].username || '';
+      passwordField.value = credentials[0].password || '';
+      autofilled = true;
+      console.log('Autofilled credentials in form:', form);
+    }
+  });
+  if (!autofilled) {
+    console.warn('No suitable login form found for autofill.');
   }
 }
 

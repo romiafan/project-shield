@@ -166,3 +166,4 @@ See README.md for repository layout and extension folder location.
 - [ ] Security review and advanced features
 - [ ] Cross-browser testing
 - Status: In Progress
+```

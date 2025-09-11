@@ -1,0 +1,13 @@
+{
+  "name": "project-shield-browser-extension",
+  "version": "0.1.0",
+  "description": "Autofill and sync credentials from Project Shield.",
+  "main": "background.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "jest-fetch-mock": "^3.0.3"
+  }
+}

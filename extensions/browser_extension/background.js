@@ -20,14 +20,21 @@ chrome.runtime.onInstalled.addListener(() => {
 
 // Credential sync logic
 async function fetchCredentials() {
-  // TODO: Replace with secure fetch from app/server
-  // For deployment, use HTTPS, authentication, and encryption
-  // Example stub: fetch from local server
+  // Secure fetch from Project Shield app/server
+  // NOTE: Always use HTTPS in production and never hardcode tokens
   try {
-    const response = await fetch('http://localhost:8080/api/credentials', {
+    // Retrieve token securely (e.g., from extension storage)
+    const token = await new Promise((resolve, reject) => {
+      chrome.storage.local.get(['authToken'], (result) => {
+        if (chrome.runtime.lastError) reject(chrome.runtime.lastError);
+        else resolve(result.authToken);
+      });
+    });
+    if (!token) throw new Error('No auth token found');
+    const response = await fetch('https://localhost:8080/api/credentials', {
       credentials: 'include',
       headers: {
-        'Authorization': 'Bearer <token>' // Replace with real token
+        'Authorization': `Bearer ${token}`
       }
     });
     if (!response.ok) throw new Error('Failed to fetch credentials');
@@ -35,8 +42,14 @@ async function fetchCredentials() {
     return data.credentials || [];
   } catch (err) {
     console.error('Credential fetch error:', err);
+    // Optionally notify popup/content script of error
     return [];
   }
+}
+
+// Export for unit testing
+if (typeof module !== 'undefined') {
+  module.exports = { fetchCredentials };
 }
 
 // Listen for messages from popup or content scripts

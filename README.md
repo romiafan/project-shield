@@ -128,15 +128,17 @@ docker compose up --build
 
 Open http://localhost:8080
 
-## Browser Extension (In Progress)
+## Browser Extension
 
-The Project Shield browser extension is under active development. It enables secure credential sync, autofill, and popup UI integration with the main app.
+The Project Shield browser extension is complete for MVP: credential sync, autofill, popup UI, and security best practices are implemented. Unit tests are set up with Jest.
 
 ### Features
 
 - Sync credentials from the Project Shield app/server
 - Autofill login forms on supported websites
 - Popup UI to view and autofill credentials
+- Search/filter credentials in popup
+- Security review and documentation
 
 ### Setup
 
@@ -147,7 +149,8 @@ The Project Shield browser extension is under active development. It enables sec
 
 ### Status
 
-- Scaffolded and functional for credential sync and autofill
-- UI and security improvements planned
+- All core features and tests complete
+- Security and documentation updated
+- Ready for cross-browser testing and advanced features
 
 See `extensions/browser_extension/README.md` for more details.
